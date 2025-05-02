@@ -42,13 +42,13 @@ function Kanban() {
 
         return (
             <div>
-            <input
-                type="text"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
+                <input
+                    type="text"
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="Nom de la tâche"
-            />
-            <button onClick={handleAddTask}>Valider</button>
+                />
+                <button onClick={handleAddTask}>Valider</button>
             </div>
         );
         

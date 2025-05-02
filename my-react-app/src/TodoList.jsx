@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-function TodoList ()  {
+function TodoList1 ()  {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const [taskStates, setTaskStates] = useState({}); // Store task states
@@ -120,4 +120,4 @@ function TodoList ()  {
     );
 };
 
-export default TodoList;
+export default TodoList1;
