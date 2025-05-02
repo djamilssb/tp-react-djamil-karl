@@ -2,15 +2,15 @@ import React, { useState } from "react";
 
 function Kanban() {
     const [tasks, setTasks] = useState([
-        { id: 1, title: "Tâche 1", status: "À faire" },
-        { id: 2, title: "Tâche 2", status: "En cours" },
-        { id: 3, title: "Tâche 3", status: "Terminées" },
+        { id: 1, title: "Tâche 1", status: "todo" },
+        { id: 2, title: "Tâche 2", status: "in-progress" },
+        { id: 3, title: "Tâche 3", status: "done" },
     ]);
 
     const columns = [
-        { title: "À faire", status: "À faire" },
-        { title: "En cours", status: "En cours" },
-        { title: "Terminées", status: "Terminées" },
+        { title: "À faire", status: "todo" },
+        { title: "En cours", status: "in-progress" },
+        { title: "Terminées", status: "done" },
     ];
 
 
@@ -51,7 +51,20 @@ function Kanban() {
             <button onClick={handleAddTask}>Valider</button>
             </div>
         );
-        
+        const newAssignee = prompt("Entrez le nom de la personne assignée à la tâche:");
+        if (newTitle && newAssignee) {
+            const newStatus = prompt("Sélectionnez le nouveau statut de la tâche (todo, in-progress, done):", "todo");
+            if (newStatus && ["todo", "in-progress", "done"].includes(newStatus)) {
+            updateTask(taskId, newTitle, newStatus, newAssignee);
+            } else {
+            alert("Statut invalide. La tâche n'a pas été mise à jour.");
+            }
+        } else {
+            alert("Données invalides. La tâche n'a pas été mise à jour.");
+        }
+        if (newTitle) {
+            updateTask(taskId, newTitle);
+        }
     };
     const addTask = (title) => {
         const newTask = {
