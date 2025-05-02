@@ -66,14 +66,6 @@ function Kanban() {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     };
 
-    const updateTask = (taskId, newTitle) => {
-        setTasks((prevTasks) =>
-            prevTasks.map((task) =>
-                task.id === taskId ? { ...task, title: newTitle } : task
-            )
-        );
-    };
-
     const handleDragStart = (e, taskId) => {
         e.dataTransfer.setData("taskId", taskId);
     };
