@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TodoList from "./TodoList";
-import Kanban from "./Kanban";
-const App = () => {
+
+const Kanban = () => {
     const [tasks, setTasks] = useState([
         { id: 1, title: "Tâche 1", status: "To Do", assignee: "" },
         { id: 2, title: "Tâche 2", status: "In Progress", assignee: "" },
@@ -27,14 +27,10 @@ const App = () => {
     return (
         <div>
             <h1>Gestion des Tâches</h1>
-            <ToDoList tasks={tasks} onStatusChange={handleStatusChange} />
-            <Kanban
-                tasks={tasks}
-                onStatusChange={handleStatusChange}
-                onAssigneeChange={handleAssigneeChange}
-            />
+            <TodoList tasks={tasks} onStatusChange={handleStatusChange} />
+            {/* Vous pouvez ajouter d'autres composants ou fonctionnalités ici */}
         </div>
     );
 };
 
-export default App;
+export default Kanban;
