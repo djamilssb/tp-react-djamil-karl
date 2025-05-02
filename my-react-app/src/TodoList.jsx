@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 
-const TodoList = () => {
+function TodoList ()  {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const [taskStates, setTaskStates] = useState({}); // Store task states
 
-    const handleAddTask = () => {
+    const addTask = () => {
         if (newTask.trim() !== '') {
             const taskId = Date.now(); // Unique ID for each task
             setTasks([...tasks, { id: taskId, name: newTask }]);
@@ -15,14 +15,14 @@ const TodoList = () => {
         }
     };
 
-    const handleDeleteTask = (taskId) => {
+    const deleteTask = (taskId) => {
         setTasks(tasks.filter((task) => task.id !== taskId));
         const updatedStates = { ...taskStates };
         delete updatedStates[taskId];
         setTaskStates(updatedStates);
     };
 
-    const handleChangeState = (taskId, newState) => {
+    const changeState = (taskId, newState) => {
         setTaskStates({ ...taskStates, [taskId]: newState });
     };
 
@@ -36,7 +36,7 @@ const TodoList = () => {
                     onChange={(e) => setNewTask(e.target.value)}
                     placeholder="Add a new task"
                 />
-                <button onClick={handleAddTask}>Add</button>
+                <button onClick={addTask}>Add</button>
             </div>
             <h2>Tasks</h2>
             <ul>
@@ -47,13 +47,13 @@ const TodoList = () => {
                             <span>{task.name}</span>
                             <select
                                 value={taskStates[task.id]}
-                                onChange={(e) => handleChangeState(task.id, e.target.value)}
+                                onChange={(e) => changeState(task.id, e.target.value)}
                             >
                                 <option value="à faire">À faire</option>
                                 <option value="en cours">En cours</option>
                                 <option value="fini">Fini</option>
                             </select>
-                            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                            <button onClick={() => deleteTask(task.id)}>Delete</button>
                         </li>
                     ))}
             </ul>
@@ -112,7 +112,7 @@ const TodoList = () => {
                     .map((task) => (
                         <li key={task.id}>
                             <span>{task.name}</span>
-                            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                            <button onClick={() => deleteTask(task.id)}>Delete</button>
                         </li>
                     ))}
             </ul>
