@@ -51,7 +51,20 @@ function Kanban() {
                 <button onClick={handleAddTask}>Valider</button>
             </div>
         );
-        
+        const newAssignee = prompt("Entrez le nom de la personne assignée à la tâche:");
+        if (newTitle && newAssignee) {
+            const newStatus = prompt("Sélectionnez le nouveau statut de la tâche (todo, in-progress, done):", "todo");
+            if (newStatus && ["todo", "in-progress", "done"].includes(newStatus)) {
+            updateTask(taskId, newTitle, newStatus, newAssignee);
+            } else {
+            alert("Statut invalide. La tâche n'a pas été mise à jour.");
+            }
+        } else {
+            alert("Données invalides. La tâche n'a pas été mise à jour.");
+        }
+        if (newTitle) {
+            updateTask(taskId, newTitle);
+        }
     };
     const addTask = (title) => {
         const newTask = {
@@ -64,6 +77,14 @@ function Kanban() {
 
     const deleteTask = (taskId) => {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    };
+
+    const updateTask = (taskId, newTitle) => {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === taskId ? { ...task, title: newTitle } : task
+            )
+        );
     };
 
     const handleDragStart = (e, taskId) => {
@@ -118,7 +139,15 @@ function Kanban() {
                                 >
                                     {task.title}
                                     <button
-                                        onClick={() => handleUpdateTask(task.id)}
+                                        onClick={() => {
+                                            const newTitle = prompt(
+                                                "Entrez le nouveau titre de la tâche:",
+                                                task.title
+                                            );
+                                            if (newTitle) {
+                                                updateTask(task.id, newTitle);
+                                            }
+                                        }}
                                         style={{ marginLeft: "10px" }}
                                     >
                                         Modifier
