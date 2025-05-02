@@ -29,41 +29,11 @@ function Kanban() {
     };
 
     const handleUpdateTask = (taskId) => {
-        const [newTitle, setNewTitle] = useState("");
-
-        const handleAddTask = () => {
-            if (newTitle.trim() !== "") {
-            addTask(newTitle);
-            setNewTitle("");
-            } else {
-            alert("Le titre de la tâche ne peut pas être vide.");
-            }
-        };
-
-        return (
-            <div>
-                <input
-                    type="text"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                placeholder="Nom de la tâche"
-                />
-                <button onClick={handleAddTask}>Valider</button>
-            </div>
-        );
-        const newAssignee = prompt("Entrez le nom de la personne assignée à la tâche:");
-        if (newTitle && newAssignee) {
-            const newStatus = prompt("Sélectionnez le nouveau statut de la tâche (todo, in-progress, done):", "todo");
-            if (newStatus && ["todo", "in-progress", "done"].includes(newStatus)) {
-            updateTask(taskId, newTitle, newStatus, newAssignee);
-            } else {
-            alert("Statut invalide. La tâche n'a pas été mise à jour.");
-            }
+        const newTitle = prompt("Entrez le nouveau titre de la tâche:");
+        if (newTitle && newTitle.trim() !== "") {
+            updateTask(taskId, newTitle.trim());
         } else {
-            alert("Données invalides. La tâche n'a pas été mise à jour.");
-        }
-        if (newTitle) {
-            updateTask(taskId, newTitle);
+            alert("Le titre de la tâche ne peut pas être vide.");
         }
     };
     const addTask = (title) => {
