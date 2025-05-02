@@ -17,7 +17,7 @@ const TodoList = () => {
     };
 
     return (
-        <div>ç
+        <div>
             <h1>Todo List</h1>
             <div>
                 <input
