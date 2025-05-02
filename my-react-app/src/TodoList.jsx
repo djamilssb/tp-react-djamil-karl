@@ -92,7 +92,16 @@ const TodoList = () => {
                                     </button>
                                 </>
                             )}
-                            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                            <button
+                                onClick={() =>
+                                    setTaskStates({
+                                        ...taskStates,
+                                        [task.id]: 'fini',
+                                    })
+                                }
+                            >
+                                Terminer
+                            </button>
                         </li>
                     ))}
             </ul>
