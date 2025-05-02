@@ -38,21 +38,74 @@ const TodoList = () => {
                 />
                 <button onClick={handleAddTask}>Add</button>
             </div>
+            <h2>Tasks</h2>
             <ul>
-                {tasks.map((task) => (
-                    <li key={task.id}>
-                        <span>{task.name}</span>
-                        <select
-                            value={taskStates[task.id]}
-                            onChange={(e) => handleChangeState(task.id, e.target.value)}
-                        >
-                            <option value="à faire">À faire</option>
-                            <option value="en cours">En cours</option>
-                            <option value="fini">Fini</option>
-                        </select>
-                        <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-                    </li>
-                ))}
+                {tasks
+                    .filter((task) => taskStates[task.id] === 'à faire')
+                    .map((task) => (
+                        <li key={task.id}>
+                            <span>{task.name}</span>
+                            <select
+                                value={taskStates[task.id]}
+                                onChange={(e) => handleChangeState(task.id, e.target.value)}
+                            >
+                                <option value="à faire">À faire</option>
+                                <option value="en cours">En cours</option>
+                                <option value="fini">Fini</option>
+                            </select>
+                            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                        </li>
+                    ))}
+            </ul>
+            <h2>Tasks In Progress</h2>
+            <ul>
+                {tasks
+                    .filter((task) => taskStates[task.id].startsWith('en cours'))
+                    .map((task) => (
+                        <li key={task.id}>
+                            <span>{task.name}</span>
+                            {taskStates[`${task.id}_validated`] ? (
+                                <span> - Assigned to: {taskStates[`${task.id}_person`]}</span>
+                            ) : (
+                                <>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter name"
+                                        value={taskStates[`${task.id}_person`] || ''}
+                                        onChange={(e) =>
+                                            setTaskStates({
+                                                ...taskStates,
+                                                [`${task.id}_person`]: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <button
+                                        onClick={() =>
+                                            setTaskStates({
+                                                ...taskStates,
+                                                [task.id]: 'en cours',
+                                                [`${task.id}_validated`]: true,
+                                            })
+                                        }
+                                    >
+                                        Validate
+                                    </button>
+                                </>
+                            )}
+                            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                        </li>
+                    ))}
+            </ul>
+            <h2>Completed Tasks</h2>
+            <ul>
+                {tasks
+                    .filter((task) => taskStates[task.id] === 'fini')
+                    .map((task) => (
+                        <li key={task.id}>
+                            <span>{task.name}</span>
+                            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                        </li>
+                    ))}
             </ul>
         </div>
     );
